@@ -10,6 +10,8 @@ class SeatsController < ApplicationController
   # GET /seats/1
   # GET /seats/1.json
   def show
+    @seat = Seat.find_by(id: params[:id])
+    @owner = @seat.owner
   end
 
   # GET /seats/new

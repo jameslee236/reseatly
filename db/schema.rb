@@ -28,9 +28,12 @@ ActiveRecord::Schema.define(version: 20160110031757) do
   add_index "records", ["user_id"], name: "index_records_on_user_id", using: :btree
 
   create_table "seats", force: true do |t|
+    t.integer  "owner_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "seats", ["owner_id"], name: "index_seats_on_owner_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "first_name"
