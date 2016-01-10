@@ -1,4 +1,4 @@
-<h1>Listing seats</h1>
+<h1>Seats</h1>
 
 <table>
   <thead>
@@ -8,11 +8,17 @@
   </thead>
 
   <tbody>
+
     <% @seats.each do |seat| %>
       <tr>
+        <td>Seat Number</td>
+        <td>Owner</td>
+      </tr>
+      <tr>
+        <td><%= seat.id %></td>
+        <td><%= seat.owner.first_name %></td>
         <td><%= link_to 'Show', seat %></td>
-        <td><%= link_to 'Edit', edit_seat_path(seat) %></td>
-        <td><%= link_to 'Destroy', seat, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Remove', seat, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

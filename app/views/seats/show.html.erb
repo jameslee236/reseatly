@@ -1,4 +1,18 @@
-<p id="notice"><%= notice %></p>
+<h1>Seat <%= @seat.id %></h1>
+<table>
+	<tr>
+		<td>First Name: </td>
+		<td><%= @owner.first_name %></td>
+	</tr>
 
+	<tr>
+		<td>Last Name: </td>
+		<td><%= @owner.last_name %></td>
+	</tr>
+	<tr>
+		<td>Department: </td>
+		<td><%= @owner.department %></td>
+	</tr>
+</table>
 <%= link_to 'Edit', edit_seat_path(@seat) %> |
 <%= link_to 'Back', seats_path %>
