@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby "2.2.1"
 gem 'rails', '4.1.0'
 gem 'pg'
 gem 'sass-rails', '~> 4.0.3'
@@ -16,4 +17,5 @@ gem 'capybara', '~> 2.5'
 gem 'simple_form'
 
 gem 'rails_12factor', group: :production
-ruby "2.2.1"
+
+gem 'rails_12factor'
