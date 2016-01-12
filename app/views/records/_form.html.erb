@@ -1,9 +1,8 @@
 <br>
 <%= simple_form_for @record do |f| %>
-	<%= f.input :user_id, :as => :hidden, :input_html => { :value => "some value" } %>
-  <%= f.input :seat_id %><br/>
+	<%= f.input :user_id, :as => :hidden, :input_html => { :value => params[:user_id] } %>
+  <%= f.input :seat_id, input_html: {value: params[:seat_id]} %><br/>
   <%= f.input :usage %><br/>
   <%= f.button :submit %>
 <% end %>
 <br>
-

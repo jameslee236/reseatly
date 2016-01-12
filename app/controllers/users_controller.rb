@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    @records = Record.where(user_id: params[:id]).order('created_at ASC')
   end
 
   def new

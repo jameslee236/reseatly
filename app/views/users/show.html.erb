@@ -15,7 +15,22 @@
   <%= @user.department %>
 </p>
 
-
-<%= link_to 'Add Record', new_record_path(user_id: params[:id]) %>
+<h3>History:</h3>
+<table>
+<tr>
+<td>Record ID</td>
+<td>Date</td>
+<td>Hours</td>
+</tr>
+<% @records.each do |record| %>
+<tr>
+<td><%= record.id %> </td>
+<td><%= record.created_at.strftime("%d %b. %Y") %></td>
+<td><%= record.usage %></td>
+</tr>
+<% end %>
+</table>
+<br>
+<%= link_to 'Add Record', new_record_path(user_id: params[:id], seat_id: params[:seat_id]) %>
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
