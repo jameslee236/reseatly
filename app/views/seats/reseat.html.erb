@@ -1,0 +1,26 @@
+<h2>Current Seat Arrangements</h2>
+<%= render 'ordered', layout: false %>
+<br>
+<table>
+<tr>
+<td>Employees Who Gain A Standing Desk</td>
+</tr>
+<tr>
+<% @new_seats.each do |seat| %>
+<td><%= seat.first_name %></td>
+<% end %>
+</tr>
+</table><br>
+
+<table>
+<tr>
+<td>Employees Who Lose A Standing Desk</td>
+</tr>
+<tr>
+<% @lose_seats.each do |seat| %>
+<td><%= seat.first_name %></td>
+<% end %>
+</tr>
+</table><br>
+
+<%= button_to "Reset", seats_reset_path, :method => :put %>
