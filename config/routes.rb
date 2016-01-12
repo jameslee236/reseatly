@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'seats/reseat', to: 'seats#reseat'
+  put 'seats/reset', to: 'seats#reset'
   resources :seats
   resources :users
   resources :records, only: [:index, :show, :new, :create]
