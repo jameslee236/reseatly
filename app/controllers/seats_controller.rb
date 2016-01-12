@@ -17,6 +17,7 @@ class SeatsController < ApplicationController
 
   def reset
     @seats = Seat.all
+    @users = User.all
     @seats.update_all(owner_id: 0)
     keepers = find_seat_keepers
     counter = 0
@@ -25,6 +26,7 @@ class SeatsController < ApplicationController
       counter += 1
       seat.save
     end
+    @users.update_all(total_hours: 0)
     redirect_to home_path
   end
 
@@ -80,9 +82,13 @@ class SeatsController < ApplicationController
   end
 
   def check_owner_id
-    params = seat_params
-    if User.find_by(id: params[:owner_id]).nil?
-      render plain: "Must assign seat to existing user"
+    params = seat_params 
+    if params[:owner_id] == "0"
+      return "Communal Seat has been created"
+    else
+      if User.find_by(id: params[:owner_id]).nil?
+        render plain: "Must assign seat to existing user"
+      end
     end
   end
 

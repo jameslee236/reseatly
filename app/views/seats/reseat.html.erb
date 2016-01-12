@@ -23,4 +23,4 @@
 </tr>
 </table><br>
 
-<%= button_to "Reset", seats_reset_path, :method => :put %>
+<%= button_to "Reset", seats_reset_path, :method => :put, data: {confirm: "Are you sure? This will reassign all seats and reset usage data to 0." } %>
