@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :seats
 
   resources :users
+  resources :records, only: [:index, :show, :new, :create]
 
   get '/home', to: 'home#index', as: 'home'
 

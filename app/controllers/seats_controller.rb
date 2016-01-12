@@ -1,76 +1,66 @@
 class SeatsController < ApplicationController
   before_action :set_seat, only: [:show, :edit, :update, :destroy]
-
-  # GET /seats
-  # GET /seats.json
+  before_action :check_owner_id, only: [:create]
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
   def index
     @seats = Seat.all
   end
 
-  # GET /seats/1
-  # GET /seats/1.json
   def show
     @seat = Seat.find_by(id: params[:id])
     @owner = @seat.owner
+    @record = Record.new
   end
 
-  # GET /seats/new
   def new
     @seat = Seat.new
   end
 
-  # GET /seats/1/edit
   def edit
   end
 
-  # POST /seats
-  # POST /seats.json
   def create
     @seat = Seat.new(seat_params)
-
-    respond_to do |format|
-      if @seat.save
-        format.html { redirect_to @seat, notice: 'Seat was successfully created.' }
-        format.json { render :show, status: :created, location: @seat }
-      else
-        format.html { render :new }
-        format.json { render json: @seat.errors, status: :unprocessable_entity }
-      end
+    if @seat.save
+      redirect_to @seat
+    else
+      render 'new'
     end
   end
 
-  # PATCH/PUT /seats/1
-  # PATCH/PUT /seats/1.json
   def update
-    respond_to do |format|
-      if @seat.update(seat_params)
-        format.html { redirect_to @seat, notice: 'Seat was successfully updated.' }
-        format.json { render :show, status: :ok, location: @seat }
-      else
-        format.html { render :edit }
-        format.json { render json: @seat.errors, status: :unprocessable_entity }
-      end
+    if @seat.update(seat_params)
+      redirect_to @seat
+    else
+      render 'edit'
     end
   end
 
-  # DELETE /seats/1
-  # DELETE /seats/1.json
   def destroy
-    @seat.destroy
-    respond_to do |format|
-      format.html { redirect_to seats_url, notice: 'Seat was successfully destroyed.' }
-      format.json { head :no_content }
+    if @seat.destroy
+      redirect_to seats_path
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
     def set_seat
       @seat = Seat.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def seat_params
-      params[:seat]
+      params.require(:seat).permit(:owner_id)
     end
+
+    def record_not_found
+      render plain: "404 Not Found", status: 404
+    end
+
+    def check_owner_id
+      params = seat_params
+      if User.find_by(id: params[:owner_id]).nil?
+        render plain: "Must assign seat to existing user"
+      end
+    end
+
 end
