@@ -16,6 +16,16 @@ class SeatsController < ApplicationController
   end
 
   def reset
+    @seats = Seat.all
+    @seats.update_all(owner_id: 0)
+    keepers = find_seat_keepers
+    counter = 0
+    @seats.each do |seat|
+      seat.owner_id = keepers[counter].id
+      counter += 1
+      seat.save
+    end
+    redirect_to home_path
   end
 
   def show
@@ -114,7 +124,5 @@ class SeatsController < ApplicationController
     old = find_old_seats
     old - new
   end
-
-
 
 end
