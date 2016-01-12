@@ -15,5 +15,7 @@
   <%= @user.department %>
 </p>
 
+
+<%= link_to 'Add Record', new_record_path(user_id: params[:id]) %>
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
