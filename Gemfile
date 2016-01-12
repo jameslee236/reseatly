@@ -15,3 +15,5 @@ gem 'rspec', '~> 3.4'
 gem 'capybara', '~> 2.5'
 gem 'simple_form'
 
+gem 'rails_12factor', group: :production
+ruby "2.2.1"

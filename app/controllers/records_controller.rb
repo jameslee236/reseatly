@@ -10,6 +10,7 @@ class RecordsController < ApplicationController
 
 	def new
 		@record = Record.new
+		@seats = Seat.where(owner_id: 0)
 	end
 
 	def create
