@@ -26,16 +26,42 @@
 	</tbody>
 </table>
 
-
-
 <h2>This is the video</h2>
 
- <iframe src="http://fast.wistia.net/embed/iframe/qv0hemx7ev" allowtransparency="true" frameborder="0" scrolling="no" class="wistia_embed" name="wistia_embed" allowfullscreen mozallowfullscreen webkitallowfullscreen oallowfullscreen msallowfullscreen width="640" height="388"></iframe>
+<iframe id="video_player" src="http://fast.wistia.net/embed/iframe/qv0hemx7ev" allowtransparency="true" frameborder="0" scrolling="no" class="wistia_embed" name="wistia_embed" allowfullscreen mozallowfullscreen webkitallowfullscreen oallowfullscreen msallowfullscreen width="640" height="388"></iframe>
 <script src="http://fast.wistia.net/assets/external/E-v1.js" async></script>
 
+
 <script>
-window._wq = window._wq || [];
-_wq.push({ "abc": function(video) {
-  console.log("I got a handle to the video!", video);
-}});
+	window._wq = window._wq || [];
+	_wq.push({ "video": function(video) {
+		console.log("I got a handle to the video!", video)
+	  video.bind("play", function() {
+		  analytics.track('Played Video', {
+				title: video.name(),
+				id: video.hashedId(),
+				duration: video.duration()
+	  	})
+		});
+
+		video.bind("pause", function() {
+			if (video.time() < parseInt(video.duration())) {
+	      analytics.track('Paused Video', {
+	        title: video.name(),
+	        id: video.hashedId(),
+	        pausedAt: video.time()
+	      });
+    	};
+		});
+
+		video.bind("end", function() {
+		  analytics.track('Finished Video', {
+				title: video.name(),
+				id: video.hashedId(),
+				duration: video.duration()
+	  	})
+  	});	
+
+	}});
 </script>
+
