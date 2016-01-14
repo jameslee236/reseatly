@@ -35,10 +35,10 @@
 <script>
 	window._wq = window._wq || [];
 	_wq.push({ "video": function(video) {
-		console.log("I got a handle to the video!", video)
 	  video.bind("play", function() {
 		  analytics.track('Played Video', {
-				title: video.name(),
+				label: video.name(),
+				category: 'Video',
 				id: video.hashedId(),
 				duration: video.duration()
 	  	})
@@ -47,7 +47,8 @@
 		video.bind("pause", function() {
 			if (video.time() < parseInt(video.duration())) {
 	      analytics.track('Paused Video', {
-	        title: video.name(),
+	        label: video.name(),
+	        category: 'Video',
 	        id: video.hashedId(),
 	        pausedAt: video.time()
 	      });
@@ -56,7 +57,8 @@
 
 		video.bind("end", function() {
 		  analytics.track('Finished Video', {
-				title: video.name(),
+				label: video.name(),
+				category: 'Video',
 				id: video.hashedId(),
 				duration: video.duration()
 	  	})
