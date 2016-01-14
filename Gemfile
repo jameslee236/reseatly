@@ -15,7 +15,6 @@ gem 'faker', '~> 1.6', '>= 1.6.1'
 gem 'rspec', '~> 3.4'
 gem 'capybara', '~> 2.5'
 gem 'simple_form'
+gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
 
 gem 'rails_12factor', group: :production
-
-gem 'rails_12factor'
